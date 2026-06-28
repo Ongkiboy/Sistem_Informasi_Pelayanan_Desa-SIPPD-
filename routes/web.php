@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/','/login');
+
+require __DIR__ . '/web/auth.php';
+require __DIR__ . '/web/alat.php';
+require __DIR__ . '/web/peminjaman.php';
+require __DIR__ . '/web/approval.php';
