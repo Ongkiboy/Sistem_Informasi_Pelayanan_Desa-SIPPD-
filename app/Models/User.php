@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['nama', 'email', 'password', 'nim', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * Get the attributes that should be cast.
@@ -29,4 +30,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+        public function peminjaman(): HasMany
+    {
+        return $this->hasMany(Peminjaman::class, 'pengguna_id');
+    }
+
+    public function isAdmin(): bool    { return $this->role === 'admin'; }
+    public function isMahasiswa(): bool { return $this->role === 'mahasiswa'; }
 }
