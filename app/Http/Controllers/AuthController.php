@@ -15,6 +15,7 @@ class AuthController extends Controller
         if(Auth::check()){
             return $this->redirectBerdasarkanRole();
         }
+        return view('auth.login');
     }
 
 
